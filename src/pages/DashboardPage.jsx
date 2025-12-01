@@ -3,11 +3,12 @@ import { motion } from 'framer-motion';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { useContext } from 'react';
 import { ChecklistContext } from '../context/ChecklistContext';
+import { Link } from 'react-router-dom';
 
 const DashboardPage = () => {
   const { journalEntries } = useContext(ChecklistContext);
   const [timeRange, setTimeRange] = useState('month');
-  
+
   // Mock data for charts
   const performanceData = [
     { name: 'Jan', profit: 4000, loss: 2400 },
@@ -17,14 +18,14 @@ const DashboardPage = () => {
     { name: 'May', profit: 4800, loss: 1890 },
     { name: 'Jun', profit: 3800, loss: 2390 },
   ];
-  
+
   const winRateData = [
     { name: 'Win', value: 65 },
     { name: 'Loss', value: 35 },
   ];
-  
+
   const COLORS = ['#10B981', '#EF4444'];
-  
+
   const stats = [
     { name: 'Total Trades', value: '24', change: '+12%', icon: '📊' },
     { name: 'Win Rate', value: '62.5%', change: '+3.2%', icon: '📈' },
@@ -44,18 +45,17 @@ const DashboardPage = () => {
             <button
               key={range}
               onClick={() => setTimeRange(range)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                timeRange === range
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${timeRange === range
                   ? 'bg-emerald-500 text-white'
                   : 'bg-white dark:bg-dark-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-dark-700'
-              }`}
+                }`}
             >
               {range.charAt(0).toUpperCase() + range.slice(1)}
             </button>
           ))}
         </div>
       </div>
-      
+
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
@@ -81,7 +81,7 @@ const DashboardPage = () => {
           </motion.div>
         ))}
       </div>
-      
+
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div
@@ -97,9 +97,9 @@ const DashboardPage = () => {
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                 <XAxis dataKey="name" stroke="#6B7280" />
                 <YAxis stroke="#6B7280" />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     backdropFilter: 'blur(10px)',
                     borderRadius: '0.5rem',
                     border: '1px solid rgba(229, 231, 235, 0.5)'
@@ -112,7 +112,7 @@ const DashboardPage = () => {
             </ResponsiveContainer>
           </div>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -137,9 +137,9 @@ const DashboardPage = () => {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     backdropFilter: 'blur(10px)',
                     borderRadius: '0.5rem',
                     border: '1px solid rgba(229, 231, 235, 0.5)'
@@ -150,7 +150,7 @@ const DashboardPage = () => {
           </div>
         </motion.div>
       </div>
-      
+
       {/* Recent Trades */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -164,7 +164,7 @@ const DashboardPage = () => {
             View All
           </button>
         </div>
-        
+
         {journalEntries.length === 0 ? (
           <div className="text-center py-12">
             <div className="mx-auto h-16 w-16 rounded-full bg-slate-100 dark:bg-dark-700 flex items-center justify-center">
